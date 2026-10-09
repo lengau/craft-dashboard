@@ -89,6 +89,9 @@ def run_puppeteer(
                 ) from last_timeout_error
 
             if result.returncode != 0:
+                if attempt < _MAX_ATTEMPTS:
+                    time.sleep(_RETRY_BACKOFF_SECONDS)
+                    continue
                 raise RuntimeError(
                     f"Puppeteer script failed (exit {result.returncode}):\n"
                     f"stdout: {result.stdout}\n"
