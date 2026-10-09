@@ -137,8 +137,6 @@ PUPPETEER_PREAMBLE = textwrap.dedent("""\
         // OOM-killed under memory pressure from other processes.
         '--disable-dev-shm-usage',
         '--disable-gpu',
-        '--single-process',
-        '--no-zygote',
         '--js-flags=--max-old-space-size=256',
       ],
     });
