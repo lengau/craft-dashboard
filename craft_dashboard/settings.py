@@ -56,8 +56,10 @@ class Settings(BaseSettings):
     semantic_search_similarity_threshold: float = 0.25
 
     # Database pool settings
-    db_pool_size: int = 5
-    db_max_overflow: int = 10
+    db_pool_size: int = 2
+    db_max_overflow: int = 3
+    db_pool_recycle: int = 300
+    db_pool_timeout: int = 30
 
     # How many days before re-fetching an issue from GitHub
     refresh_age_days: int = 7

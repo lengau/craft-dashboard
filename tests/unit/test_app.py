@@ -131,6 +131,41 @@ class TestCreateApp:
             "⚠️  EMBEDDING_API_KEY is not set. Semantic search and summary embeddings will fail.",
         ]
 
+    async def test_lifespan_configures_engine_pool_settings(self) -> None:
+        """Lifespan passes pool recycle and timeout settings to get_engine."""
+        app = FastAPI()
+        app.state.settings = Settings(
+            database_url="postgresql+asyncpg://localhost/test",
+            db_pool_size=3,
+            db_max_overflow=4,
+            db_pool_recycle=120,
+            db_pool_timeout=45,
+            admin_token="",
+            github_token="",
+            eval_api_token="",
+            embedding_api_key="",
+            config_file="craft-dashboard.toml",
+        )
+        engine = MagicMock()
+        engine.dispose = AsyncMock()
+
+        with (
+            patch(
+                "craft_dashboard.app.get_engine", return_value=engine
+            ) as mock_get_engine,
+            patch("craft_dashboard.app.get_session_factory", return_value=MagicMock()),
+            patch("craft_dashboard.app.set_session_factory"),
+            patch("craft_dashboard.app.load_config", return_value=MagicMock()),
+        ):
+            async with lifespan(app):
+                mock_get_engine.assert_called_once_with(
+                    "postgresql+asyncpg://localhost/test",
+                    pool_size=3,
+                    max_overflow=4,
+                    pool_recycle=120,
+                    pool_timeout=45,
+                )
+
     def test_json_formatter_formats_log_record(self) -> None:
         """JSONFormatter produces valid JSON."""
         formatter = JSONFormatter()

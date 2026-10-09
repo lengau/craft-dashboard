@@ -16,7 +16,25 @@ class TestGetEngine:
         """Engine has reasonable pool settings."""
         engine = get_engine("postgresql+asyncpg://localhost/test_db")
 
-        assert engine.pool.size() == 5
+        assert engine.pool.size() == 2
+        assert engine.pool._max_overflow == 3
+        assert engine.pool._recycle == 300
+        assert engine.pool.timeout() == 30
+
+    def test_engine_custom_pool_settings(self) -> None:
+        """get_engine honors custom pool parameters."""
+        engine = get_engine(
+            "postgresql+asyncpg://localhost/test_db",
+            pool_size=4,
+            max_overflow=6,
+            pool_recycle=600,
+            pool_timeout=15,
+        )
+
+        assert engine.pool.size() == 4
+        assert engine.pool._max_overflow == 6
+        assert engine.pool._recycle == 600
+        assert engine.pool.timeout() == 15
 
 
 class TestGetSessionFactory:

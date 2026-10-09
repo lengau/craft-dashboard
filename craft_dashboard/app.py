@@ -75,6 +75,8 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         settings.database_url,
         pool_size=settings.db_pool_size,
         max_overflow=settings.db_max_overflow,
+        pool_recycle=settings.db_pool_recycle,
+        pool_timeout=settings.db_pool_timeout,
     )
     session_factory = get_session_factory(engine)
     set_session_factory(session_factory)

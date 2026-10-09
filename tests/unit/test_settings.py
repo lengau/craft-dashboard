@@ -154,6 +154,30 @@ class TestEmbeddingSettings:
         assert s.related_issues_similarity_threshold == 0.80
 
 
+class TestDatabasePoolSettings:
+    """Tests for database pool settings."""
+
+    def test_default_pool_settings(self, monkeypatch) -> None:
+        monkeypatch.setenv("DATABASE_URL", "postgresql+asyncpg://localhost/test")
+        settings = Settings(_env_file=None)
+        assert settings.db_pool_size == 2
+        assert settings.db_max_overflow == 3
+        assert settings.db_pool_recycle == 300
+        assert settings.db_pool_timeout == 30
+
+    def test_pool_settings_from_env(self, monkeypatch) -> None:
+        monkeypatch.setenv("DATABASE_URL", "postgresql+asyncpg://localhost/test")
+        monkeypatch.setenv("DB_POOL_SIZE", "4")
+        monkeypatch.setenv("DB_MAX_OVERFLOW", "8")
+        monkeypatch.setenv("DB_POOL_RECYCLE", "600")
+        monkeypatch.setenv("DB_POOL_TIMEOUT", "45")
+        settings = Settings(_env_file=None)
+        assert settings.db_pool_size == 4
+        assert settings.db_max_overflow == 8
+        assert settings.db_pool_recycle == 600
+        assert settings.db_pool_timeout == 45
+
+
 class TestEvalTranscriptRetentionDays:
     def test_rejects_negative_retention_days(self) -> None:
         with pytest.raises(ValueError, match="eval_transcript_retention_days"):
