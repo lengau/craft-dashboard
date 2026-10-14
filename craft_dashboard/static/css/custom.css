@@ -50,6 +50,17 @@ html.is-dark-theme {
   --app-toast-success-bg: #22a746;
   --app-toast-info-bg: #4788f0;
   --app-toast-text: #fff;
+
+  /* Remap Vanilla Framework color variables to dark theme equivalents */
+  --vf-color-text-default: var(--app-text);
+  --vf-color-text-muted: var(--app-text-muted);
+  --vf-color-text-inactive: var(--app-text-muted);
+  --vf-color-link-default: #cfe8ff;
+  --vf-color-border-default: var(--app-border);
+  --vf-color-border-low-contrast: var(--app-border-strong);
+  --vf-color-background-default: var(--app-background);
+  --vf-color-background-alt: var(--app-surface);
+  --vf-color-background-inputs: var(--app-surface);
 }
 
 /*
@@ -83,12 +94,51 @@ html.is-dark-theme {
     --app-toast-success-bg: #22a746;
     --app-toast-info-bg: #4788f0;
     --app-toast-text: #fff;
+
+    /* Remap Vanilla Framework color variables to dark theme equivalents */
+    --vf-color-text-default: var(--app-text);
+    --vf-color-text-muted: var(--app-text-muted);
+    --vf-color-text-inactive: var(--app-text-muted);
+    --vf-color-link-default: #cfe8ff;
+    --vf-color-border-default: var(--app-border);
+    --vf-color-border-low-contrast: var(--app-border-strong);
+    --vf-color-background-default: var(--app-background);
+    --vf-color-background-alt: var(--app-surface);
+    --vf-color-background-inputs: var(--app-surface);
   }
 
   /* Link colour is hardcoded, not a CSS variable — override explicitly */
   html:not([data-theme="light"]) a {
     color: #cfe8ff;
   }
+
+  html:not([data-theme="light"]) .u-text--muted,
+  html:not([data-theme="light"]) .p-text--muted,
+  html:not([data-theme="light"]) .related-work-indicator {
+    color: var(--app-text-muted) !important;
+  }
+
+  html:not([data-theme="light"]) .p-link--soft {
+    color: var(--app-text);
+  }
+
+  html:not([data-theme="light"]) .p-link--soft:hover {
+    color: #cfe8ff;
+  }
+}
+
+html.is-dark-theme .u-text--muted,
+html.is-dark-theme .p-text--muted,
+html.is-dark-theme .related-work-indicator {
+  color: var(--app-text-muted) !important;
+}
+
+html.is-dark-theme .p-link--soft {
+  color: var(--app-text);
+}
+
+html.is-dark-theme .p-link--soft:hover {
+  color: #cfe8ff;
 }
 
 html.is-dark-theme h1,

@@ -39,3 +39,8 @@ class TestFrontendAssets:
         assert "html.is-dark-theme select" in contents
         assert "html.is-dark-theme a" in contents
         assert "html.is-dark-theme h1" in contents
+        assert "--vf-color-text-default: var(--app-text);" in contents
+        assert "--vf-color-text-muted: var(--app-text-muted);" in contents
+        assert "html.is-dark-theme .u-text--muted" in contents
+        assert "html.is-dark-theme .related-work-indicator" in contents
+        assert "html.is-dark-theme .p-link--soft" in contents
