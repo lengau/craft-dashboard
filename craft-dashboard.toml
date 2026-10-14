@@ -108,6 +108,12 @@ launchpad-maintainers = [
     "~cmatsuoka",
     "~cjp256",
     "~mr-cal",
+    "~mvo",
+    "~igorljubuncic-deactivatedaccount",
+    "~dholbach",
+    "~ev",
+    "~popey",
+    "~facundo",
 ]
 
 bots = [
