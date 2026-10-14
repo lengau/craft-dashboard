@@ -48,7 +48,7 @@ class TestDurationDelta:
         assert delta.text == "(+3d)"
         assert delta.css_class == NEGATIVE_CSS
         assert delta.tooltip == (
-            f"3 days higher than the 39 day baseline ({BASELINE_NOTE})"
+            f"3 days higher than the baseline of 39 days ({BASELINE_NOTE})"
         )
 
     def test_negative_delta_is_positive_styling(self) -> None:
@@ -58,7 +58,7 @@ class TestDurationDelta:
         assert delta.text == "(-4d)"
         assert delta.css_class == POSITIVE_CSS
         assert delta.tooltip == (
-            f"4 days lower than the 39 day baseline ({BASELINE_NOTE})"
+            f"4 days lower than the baseline of 39 days ({BASELINE_NOTE})"
         )
 
 
@@ -79,7 +79,7 @@ class TestThroughputDelta:
         assert view.text == "(+257/mo)"
         assert view.css_class == POSITIVE_CSS
         assert view.tooltip == (
-            f"257 items higher than the 1,283 item baseline ({BASELINE_NOTE})"
+            f"257 items higher than the baseline of 1,283 items ({BASELINE_NOTE})"
         )
 
     def test_negative_delta_is_negative_styling(self) -> None:
@@ -88,7 +88,7 @@ class TestThroughputDelta:
         assert view is not None
         assert view.text == "(-12/mo)"
         assert view.css_class == NEGATIVE_CSS
-        assert "12 items lower than the 1,283 item baseline" in view.tooltip
+        assert "12 items lower than the baseline of 1,283 items" in view.tooltip
 
 
 class TestNetChange:

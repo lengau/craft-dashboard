@@ -23,6 +23,8 @@ class TestFrontendAssets:
         assert "Chart.defaults.borderColor" in common_contents
         assert "MutationObserver" in common_contents
         assert "dataset.theme" in common_contents
+        assert "data-darkreader-scheme" in common_contents
+        assert "data-darkreader-mode" in common_contents
 
     def test_custom_css_includes_dark_mode_overrides(self) -> None:
         """The custom stylesheet overrides Vanilla defaults for dark mode."""

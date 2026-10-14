@@ -16,7 +16,13 @@ export const CHART_COLORS = {
 
 export function getThemeColors(rootElement) {
   const themeName = rootElement.dataset.theme;
-  const isDark = document.documentElement.classList.contains("is-dark-theme") || themeName === "dark";
+  const isDarkReader =
+    rootElement.getAttribute("data-darkreader-scheme") === "dark" ||
+    rootElement.hasAttribute("data-darkreader-mode");
+  const isDark =
+    document.documentElement.classList.contains("is-dark-theme") ||
+    themeName === "dark" ||
+    isDarkReader;
   const textColor = isDark ? "#f3f3f3" : "#111";
   const gridColor = isDark ? "#4b5563" : "#e5e5e5";
   return { isDark, textColor, gridColor };
@@ -178,8 +184,14 @@ export function createChartRegistry(rootElement) {
   }
 
   function watchTheme() {
+    const observedAttrs = [
+      "class",
+      "data-theme",
+      "data-darkreader-scheme",
+      "data-darkreader-mode",
+    ];
     const themeObserver = new MutationObserver((mutations) => {
-      if (!mutations.some((m) => m.attributeName === "class" || m.attributeName === "data-theme")) {
+      if (!mutations.some((m) => observedAttrs.includes(m.attributeName))) {
         return;
       }
       registeredCharts.forEach((chart) => {
@@ -187,7 +199,10 @@ export function createChartRegistry(rootElement) {
         chart.update("none");
       });
     });
-    themeObserver.observe(rootElement, { attributes: true, attributeFilter: ["class", "data-theme"] });
+    themeObserver.observe(rootElement, {
+      attributes: true,
+      attributeFilter: observedAttrs,
+    });
     return themeObserver;
   }
 

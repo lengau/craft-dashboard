@@ -81,8 +81,8 @@ def build_duration_delta(delta: int | None, baseline: int | None) -> DeltaView |
     if delta is None or delta == 0 or baseline is None:
         return None
     tooltip = (
-        f"{abs(delta)} days {_direction_word(delta)} than the {baseline} day "
-        f"baseline ({_BASELINE_NOTE})"
+        f"{abs(delta)} days {_direction_word(delta)} than the baseline of "
+        f"{baseline} days ({_BASELINE_NOTE})"
     )
     return DeltaView(
         text=f"({_signed(delta)}d)",
@@ -96,8 +96,8 @@ def build_throughput_delta(delta: int | None, baseline: int | None) -> DeltaView
     if delta is None or delta == 0 or baseline is None:
         return None
     tooltip = (
-        f"{abs(delta)} items {_direction_word(delta)} than the "
-        f"{format_count(baseline)} item baseline ({_BASELINE_NOTE})"
+        f"{abs(delta)} items {_direction_word(delta)} than the baseline of "
+        f"{format_count(baseline)} items ({_BASELINE_NOTE})"
     )
     return DeltaView(
         text=f"({_signed(delta)}/mo)",

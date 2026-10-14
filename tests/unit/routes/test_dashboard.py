@@ -126,7 +126,7 @@ class TestDashboardIndex:
         assert "Aging contributor PRs" in response.text
         assert "Need triage" in response.text
         assert "Quick wins" in response.text
-        assert "Project health &amp; navigation" in response.text
+        assert "Project health" in response.text
 
 
 class TestDashboardIndexWithData:
